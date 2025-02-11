@@ -1,20 +1,28 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="custom-header">
   <ion-toolbar>
-    <ion-title>
-      Blank
+    <ion-title class="header-title">
+      Practica 1 Hello World
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="custom-content">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large" class="header-title">Practica en clase Hello World</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div id="container" class="content-container">
+    <strong>Hello World!!!</strong>
+  </div>
+
+  <ion-button expand="block" color="primary" (click)="showInfo()" class="info-button">
+    Click
+  </ion-button>
+  <ion-button (click)="login()">Inicio</ion-button>
+  <ion-button (click)="register()">Registro</ion-button>
+  <div *ngIf="showMessage" class="info-box">
+    <p>Hi!!, ¡Xitlaly!, well done!!</p>
   </div>
 </ion-content>
