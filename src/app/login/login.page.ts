@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { InfoModalComponent } from '../info-modal/info-modal.component';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,9 @@ export class LoginPage {
   password: string = '';
   isValid: boolean = false;
 
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController, private router: Router, private loadingController: LoadingController) {}
+   
+  personas = [{username: 'xitlaly', password: '123456'}];
 
   validarCampos() {
     this.username = this.username.replace(/\s+/g, '').toLowerCase();
@@ -35,5 +39,30 @@ export class LoginPage {
       },
     });
     return await modal.present();
+  }
+
+  inicio() {
+
+    const usuarioEncontrado = this.personas.find(user => 
+      user.username === this.username && user.password === this.password
+    );
+    if (usuarioEncontrado) {
+      this.presentLoading('Iniciando...', () => {
+        this.router.navigate(['/home']); 
+      });
+    } else {
+      alert('Usuario o contraseña incorrectos');
+    }
+  }
+  //Author: Xitlaly Félix Céspedes.
+  async presentLoading(mensaje: string, callback: Function) {
+
+    const loading = await this.loadingController.create({
+      message: mensaje,
+      duration: 3000 
+    });
+    await loading.present();
+    await loading.onDidDismiss();
+    callback(); 
   }
 }
