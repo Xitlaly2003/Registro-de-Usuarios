@@ -1,28 +1,60 @@
 <ion-header [translucent]="true" class="custom-header">
   <ion-toolbar>
-    <ion-title class="header-title">
-      Practica 1 Hello World
-    </ion-title>
+    <ion-title class="header-title">Práctica 1 Hello World</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="custom-content">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large" class="header-title">Practica en clase Hello World</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container" class="content-container">
-    <strong>Hello World!!!</strong>
-  </div>
-
-  <ion-button expand="block" color="primary" (click)="showInfo()" class="info-button">
-    Click
+  <ion-button expand="full" (click)="toggleUserInfo()" class="info-button" >
+    {{ mostrarInfoUsuario ? 'Ocultar Información' : 'Mostrar Información' }}
   </ion-button>
-  <ion-button (click)="login()">Inicio</ion-button>
-  <ion-button (click)="register()">Registro</ion-button>
-  <div *ngIf="showMessage" class="info-box">
-    <p>Hi!!, ¡Xitlaly!, well done!!</p>
+
+  <ion-card *ngIf="mostrarInfoUsuario" class="info-box">
+    <ion-card-header>
+      <ion-card-title>Bienvenido, {{ user?.username }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Rol:</strong> {{ user?.role }}</p>
+      <p><strong>Permisos:</strong> {{ user?.permissions?.join(', ') }}</p>
+      <p><strong>Token:</strong> {{ token }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-button expand="block" (click)="info()" class="info-button">
+          Click
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="user?.role === 'admin'" class="admin-section">
+    <ion-button expand="full" color="danger" (click)="toggleAdminOptions()">
+      Administrar Usuarios
+    </ion-button>
+
+    <div *ngIf="mostrarAdminOpciones" class="admin-buttons">
+      <ion-button expand="block" color="primary" (click)="verUsuarios()">
+        Ver Usuarios
+      </ion-button>
+      <ion-button expand="block" color="secondary" (click)="agregarUsuario()">
+        Agregar Usuario
+      </ion-button>
+      <ion-button expand="block" color="tertiary" (click)="eliminarUsuario()">
+        Eliminar Usuario
+      </ion-button>
+    </div>
   </div>
+
+  <div *ngIf="mensaje" class="mensaje ion-text-center info-box">
+    <p>Hi!! Xitlaly! Well done!!!!</p>
+  </div>
+
 </ion-content>

@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, CommonModule]
 })
 export class InfoModalComponent {
-  @Input() username!: string;
-  @Input() password!: string;
+  @Input() username?: string;
+  @Input() password?: string;
 
   constructor(private modalController: ModalController) {}
 
